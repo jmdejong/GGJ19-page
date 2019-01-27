@@ -1,1 +1,181 @@
-Github pages
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Emulatrix | Leonardo Russo</title>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<script>
+			var userLanguage = window.navigator.userLanguage || window.navigator.language;
+
+			var valueSelect = "";
+			var valueSelectGame = "";
+			var valueResetGame = "";
+			var valueInsert = "";
+			var valueKeyboardWithMouse = "";
+			var valueError = "";
+			var valueErrorLoading = "";
+
+			var ROMDATA = "";
+			var ROMFILENAME = "";
+
+			var ZIPFILE = "";
+
+			var loadedGame = false;
+
+			if (userLanguage.substring(0,2)=="es")
+				{
+				valueSelect = "CONTROLES DE LAS PLATAFORMAS";
+				valueSelectGame = "Abrir ROM";
+				valueResetGame = "Resetear ROM";
+				valueInsert = "INSERTAR MONEDA = 1";
+				valueKeyboardWithMouse = "TECLADO Y MOUSE";
+				valueError = "ERROR: Por favor verifique que el juego se encuentre en formato NES, SMC, GB, GBC, GBA, BIN o ZIP.";
+				valueErrorWhileLoading = "El juego no pudo ser cargado. Por favor, verifique el formato del archivo y vuelva a intentarlo o reinicie el navegador Web para tener m\u00E1s memoria libre.\n\n";
+				}
+				else
+				{
+				valueSelect = "CONTROLS FOR EACH PLATFORM";
+				valueSelectGame = "Open ROM";
+				valueResetGame = "Reset ROM";
+				valueInsert = "INSERT COIN = 1";
+				valueKeyboardWithMouse = "KEYBOARD AND MOUSE";
+				valueError = "ERROR: Please check that the game is in NES, SMC, GB, GBC, GBA, BIN or ZIP format.";
+				valueErrorWhileLoading = "The game couldn't be loaded. Please check the format of the file and try again or restart the Web browser in order to get more free memory.\n\n";
+				}
+
+			function runEmulator(file)
+				{
+				var extension = file.name.split(".").pop().toLowerCase();
+				if (extension=="nes" | extension=="smc" | extension=="gb" | extension=="gbc" | extension=="gba" | extension=="bin" | extension=="zip")
+					{
+					var filereader = new FileReader();
+					filereader.file_name = file.name;
+					filereader.onload = function()
+						{
+						// SETS THE FILE CONTENT FOR THE EMULATORS
+						ROMDATA = this.result;
+						ROMFILENAME = file.name;
+						ZIPFILE = file;
+
+						// HIDES THE LOADER
+						if (loadedGame==false)
+							{
+							document.getElementById("gui").style.display = "none";
+							document.getElementById("gui_loaderlabel1").style.display = "none";
+							}
+
+						// SETS THAT A GAME WAS LOADED
+						loadedGame = true;
+
+						// DISPLAYING THE EMULATOR CONTAINER
+						document.getElementById("container").style.display = "block";
+						document.getElementById("container").focus();
+
+						// CLEARING THE SELECTED FILE VALUE
+						document.getElementById("gui_loader").value = null;
+
+						// STARTING THE EMULATOR
+						if (extension=="gb" | extension=="gbc")
+							{
+							document.getElementById("container").src = "Emulatrix_GameBoy.htm";
+							}
+						else if (extension=="gba")
+							{
+							document.getElementById("container").src = "Emulatrix_GameBoyAdvance.htm";
+							}
+						};
+					filereader.readAsArrayBuffer(file);
+					}
+					else
+					{
+					alert(valueError);
+					}
+				}
+
+			window.onload = function()
+				{
+				document.getElementById("gui_loader").disabled = false;
+				document.getElementById("gui_loader").value = null;
+				document.getElementById("container").src = "about:blank";
+
+				// TO KEEP FOCUS IN THE CONTAINER
+				setInterval(function()
+					{
+					document.getElementById("container").focus();
+					}, 250);
+				}
+
+			window.onerror = function (msg, url, lineNo, columnNo, error)
+				{
+				alert(valueErrorWhileLoading + msg.toUpperCase());
+				window.location.href = "index.html";
+				return true;
+				}
+
+			window.onkeydown = function(event)
+				{
+				if (event.keyCode === 13)
+					{
+					if (document.getElementById("gui").style.display!="none")
+						{
+						var element = document.getElementById("gui_loader").value;
+						if (typeof(element) != "undefined" && element != null)
+							{
+							document.getElementById("gui_loader").click();
+							}
+						}
+					}
+				}
+
+		</script>
+
+		<iframe id="container" src="about:blank"></iframe>
+
+		<div id="gui">
+			<div class="gui_background"><img alt="background" src="Emulatrix.jpg"/></div>
+
+			<div class="gui_menu">
+				<div class="gui_menu_vcenter">
+					<img class="logo1" alt="logo" src="Emulatrix.png"/>
+					<br /><br />
+					<span class="gui_menu_title"><script>document.write(valueSelect);</script></span>
+					<table class="gui_table">
+						<tr> 
+							<td class="gui_table_field">
+								<img src="Emulatrix_GameBoy.png" alt="GameBoy"><br />
+								START = S<br />
+								SELECT = A<br />
+								A, B, L, R = X, Z, Q, W
+							</td>
+						</tr> 
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<div class="gui_menu_fileloader" onmouseover="document.getElementById('gui_loaderlabel1').style.display='inline-block';if (loadedGame==true){document.getElementById('gui_loaderlabel2').style.display='inline-block';}" onmouseout="if(document.getElementById('gui').style.display=='none'){document.getElementById('gui_loaderlabel1').style.display='none';document.getElementById('gui_loaderlabel2').style.display='none';}">
+
+			<input type="file" id="gui_loader" disabled onchange="runEmulator(event.target.files[0]);"/>
+
+			<label for="gui_loader" id="gui_loaderlabel1">
+				<span class="gui_buttons">
+					<span class="gui_loadericon1"></span>
+					<script>document.write(valueSelectGame);</script>
+				</span>
+			</label>
+
+			<span id="gui_loaderlabel2" onclick="document.getElementById('container').contentDocument.location.reload(true);">
+				<span class="gui_buttons">
+					<span class="gui_loadericon2"></span>
+					<script>document.write(valueResetGame);</script>
+				</span>
+			</span>
+
+		</div>
+
+		<!-- <script> runEmulator(new File([""], "GBAProject.gba")); </script> -->
+		
+	</body>
+</html>
