@@ -8,7 +8,6 @@
 	<body>
 		<script>
 
-			var loadedGame = false;
 
 			window.onload = function() {
 				document.getElementById("container").src = "about:blank";
@@ -26,8 +25,6 @@
 					console.log(buffer);
 					ROMDATA = buffer;
 
-					// SETS THAT A GAME WAS LOADED
-					loadedGame = true;
 
 					// DISPLAYING THE EMULATOR CONTAINER
 					document.getElementById("container").style.display = "block";
@@ -53,8 +50,6 @@
 
 
 		</div>
-
-		<!-- <script> runEmulator(new File([""], "GBAProject.gba")); </script> -->
 		
 	</body>
 </html>
