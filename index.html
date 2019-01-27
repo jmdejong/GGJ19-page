@@ -45,19 +45,19 @@
 				valueErrorWhileLoading = "The game couldn't be loaded. Please check the format of the file and try again or restart the Web browser in order to get more free memory.\n\n";
 				}
 
-			function runEmulator(file)
+			function runEmulator(files)
 				{
-				var extension = file.name.split(".").pop().toLowerCase();
+				var extension = files[0].name.split(".").pop().toLowerCase();
 				if (extension=="nes" | extension=="smc" | extension=="gb" | extension=="gbc" | extension=="gba" | extension=="bin" | extension=="zip")
 					{
 					var filereader = new FileReader();
-					filereader.file_name = file.name;
+					filereader.file_name = files[0].name;
 					filereader.onload = function()
 						{
 						// SETS THE FILE CONTENT FOR THE EMULATORS
 						ROMDATA = this.result;
-						ROMFILENAME = file.name;
-						ZIPFILE = file;
+						ROMFILENAME = files[0].name;
+						ZIPFILE = files[0];
 
 						// HIDES THE LOADER
 						if (loadedGame==false)
@@ -79,14 +79,14 @@
 						// STARTING THE EMULATOR
 						if (extension=="gb" | extension=="gbc")
 							{
-							document.getElementById("container").src = "Emulatrix_GameBoy.htm";
+							document.getElementById("container").src = "Emulatrix_GameBoy.html";
 							}
 						else if (extension=="gba")
 							{
-							document.getElementById("container").src = "Emulatrix_GameBoyAdvance.htm";
+							document.getElementById("container").src = "Emulatrix_GameBoyAdvance.html";
 							}
 						};
-					filereader.readAsArrayBuffer(file);
+					filereader.readAsArrayBuffer(files[0]);
 					}
 					else
 					{
@@ -157,7 +157,7 @@
 
 		<div class="gui_menu_fileloader" onmouseover="document.getElementById('gui_loaderlabel1').style.display='inline-block';if (loadedGame==true){document.getElementById('gui_loaderlabel2').style.display='inline-block';}" onmouseout="if(document.getElementById('gui').style.display=='none'){document.getElementById('gui_loaderlabel1').style.display='none';document.getElementById('gui_loaderlabel2').style.display='none';}">
 
-			<input type="file" id="gui_loader" disabled onchange="runEmulator(event.target.files[0]);"/>
+			<input type="file" id="gui_loader" disabled onchange="runEmulator(event.target.files);"/>
 
 			<label for="gui_loader" id="gui_loaderlabel1">
 				<span class="gui_buttons">
