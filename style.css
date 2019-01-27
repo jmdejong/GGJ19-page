@@ -22,12 +22,29 @@ body{
 	display:none;
 	border:0;
 }
+
+#loading{
+	position:absolute;
+	width:50%;
+	left:0;
+	right:0;
+	top:20%;
+/* 	bottom:0; */
+	min-height:34px;
+	z-index:990;
+	margin:0 auto;
+	text-align:center;
+	font: 8em monospace, sans-serif;
+	color: yellow;
+}
+
 .gui_menu_fileloader{
 	position:absolute;
 	width:50%;
-	bottom:0;
 	left:0;
 	right:0;
+/* 	top:0; */
+	bottom:0;
 	min-height:34px;
 	z-index:990;
 	margin:0 auto;
@@ -36,6 +53,8 @@ body{
 
 
 #download-button {
+
+	bottom:0;
 	color: white;
     margin-left: 30px;
 }

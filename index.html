@@ -32,6 +32,9 @@
 
 					// CLEARING THE SELECTED FILE VALUE
 					document.getElementById("container").src = "Emulatrix_GameBoyAdvance.htm";
+					document.getElementById("container").onload = () => {
+						document.getElementById("loading").style.display = "none";
+					}
 					console.log(loaded);
 				}).catch(err=>console.err(err));
 			}
@@ -40,6 +43,7 @@
 		</script>
 
 		<iframe id="container" src="about:blank"></iframe>
+		<h1 id="loading">LOADING</h1>
 
 		<div class="gui_menu_fileloader">
 
