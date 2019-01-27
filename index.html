@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
-		<title>Emulatrix | Leonardo Russo</title>
+		<title>Powered by Emulatrix</title>
 		<link rel="stylesheet" href="style.css">
 	</head>
 	<body>
@@ -134,13 +134,12 @@
 		<iframe id="container" src="about:blank"></iframe>
 
 		<div id="gui">
-			<div class="gui_background"><img alt="background" src="Emulatrix.jpg"/></div>
+			<div class="gui_background"><img alt="background" src="background.jpg"/></div>
 
 			<div class="gui_menu">
 				<div class="gui_menu_vcenter">
-					<img class="logo1" alt="logo" src="Emulatrix.png"/>
+					<img class="logo1" alt="logo" src="cover.png"/>
 					<br /><br />
-					<span class="gui_menu_title"><script>document.write(valueSelect);</script></span>
 					<table class="gui_table">
 						<tr> 
 							<td class="gui_table_field">
@@ -155,7 +154,7 @@
 			</div>
 		</div>
 
-		<div class="gui_menu_fileloader" onmouseover="document.getElementById('gui_loaderlabel1').style.display='inline-block';if (loadedGame==true){document.getElementById('gui_loaderlabel2').style.display='inline-block';}" onmouseout="if(document.getElementById('gui').style.display=='none'){document.getElementById('gui_loaderlabel1').style.display='none';document.getElementById('gui_loaderlabel2').style.display='none';}">
+		<div class="gui_menu_fileloader">
 
 			<input type="file" id="gui_loader" disabled onchange="runEmulator(event.target.files);"/>
 
@@ -166,12 +165,10 @@
 				</span>
 			</label>
 
-			<span id="gui_loaderlabel2" onclick="document.getElementById('container').contentDocument.location.reload(true);">
-				<span class="gui_buttons">
-					<span class="gui_loadericon2"></span>
-					<script>document.write(valueResetGame);</script>
-				</span>
-			</span>
+			<a id="download-button" href="https://snappy-cobra.github.io/GGJ19/GBAProject.gba" download> 
+				Download OUR GAME
+			</a>
+
 
 		</div>
 
