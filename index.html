@@ -24,6 +24,7 @@
 					console.log("buffer loaded");
 					console.log(buffer);
 					ROMDATA = buffer;
+					ROMFILENAME = "ToiletBoy.gba";
 
 
 					// DISPLAYING THE EMULATOR CONTAINER
@@ -35,8 +36,8 @@
 					document.getElementById("container").onload = () => {
 						document.getElementById("loading").style.display = "none";
 					}
-					console.log(loaded);
-				}).catch(err=>console.err(err));
+// 					console.log(loaded);
+				}).catch(err=>console.error(err));
 			}
 
 
