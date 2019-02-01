@@ -55,6 +55,9 @@ body{
 #download-button {
 
 	bottom:0;
+    margin-left: 8em;
+}
+
+a {	
 	color: white;
-    margin-left: 30px;
 }
